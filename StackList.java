@@ -55,7 +55,7 @@ public class StackList {
         }
     }
 
-    public static void StackList(Scanner scan) {
+    public static void StackListMenu(Scanner scan) {
         StackList stack = new StackList();
 
         int choice;
