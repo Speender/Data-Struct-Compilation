@@ -1,39 +1,50 @@
-import java.util.*;
+import java.util.Scanner;
+
+class node {
+    Object value;
+    node next;
+
+    public node(Object value) {
+        this.value = value;
+        next = null;
+    }
+}
+
 public class QueueNode {
-    Node first;
-    Node last;
+    node first;
+    node last;
     int count;
-   
+
     public QueueNode() {
         first = null;
         last = null;
         count = 0;
     }
-   
+
     public boolean isEmpty() {
         return first == null && last == null;
     }
-   
-    public boolean enqueue(Object value) {
-        Node newNode = new Node(value);
+
+    public boolean Enqueue(Object value) {
+        node newNode = new node(value);
         if (isEmpty()) {
             first = newNode;
             last = newNode;
         } else {
-            last.setNext(newNode);  // Use setNext to link the node
+            last.next = newNode;
             last = newNode;
         }
         count++;
         return true;
     }
-   
-    public boolean dequeue() {
+
+    public boolean Dequeue() {
         if (!isEmpty()) {
             if (first == last) {
                 first = null;
                 last = null;
             } else {
-                first = first.getNext();  // Use getNext to get the next node
+                first = first.next;
             }
             count--;
             return true;
@@ -41,54 +52,54 @@ public class QueueNode {
             return false;
         }
     }
-   
+
     public Object getFirst() {
         if (!isEmpty()) {
-            return first.getItem();  // Use getItem to retrieve the value
+            return first.value;
         } else {
             return null;
         }
     }
-   
+
     public Object getLast() {
         if (!isEmpty()) {
-            return last.getItem();  // Use getItem to retrieve the value
+            return last.value;
         } else {
             return null;
         }
     }
-   
+
+    public void display() {
+        if (!isEmpty()) {
+            node temp = first;
+            while (temp != null) {
+                System.out.print("[" + temp.value + "]-->"); 
+                temp = temp.next;
+            }
+            System.out.println();
+        } else {
+            System.out.println("Queue is Empty...");
+        }
+    }
+
     public String toString() {
         String result = "";
         if (!isEmpty()) {
-            result += "first = [" + first.getItem() + "]\n";  // Use getItem
-            result += "last  = [" + last.getItem() + "]\n";  // Use getItem
+            result += "first = [" + first.value + "]\n";
+            result += "last  = [" + last.value + "]\n";
 
-            Node temporary = first;
+            node temporary = first;
             while (temporary != null) {
-                result += "[" + temporary.getItem() + "]->";  // Use getItem
-                temporary = temporary.getNext();  // Use getNext
+                result += "[" + temporary.value + "]->";
+                temporary = temporary.next;
             }
             result += "\n";
         }
         return result;
-    }   
-
-    public void display() {
-        if (!isEmpty()) {
-            Node temporary = first;
-            while (temporary != null) {
-                System.out.print("[" + temporary.getItem() + "]->");  // Use getItem
-                temporary = temporary.getNext();  // Use getNext
-            }
-            System.out.println();
-        } else {
-            System.out.println("Queue is empty...");
-        }
     }
-   
-    public static void QueueNodeMen(Scanner scann) {
-        String Choice;
+
+    public static void QueueNodeMenu(Scanner scan) {
+        int choice;
         QueueNode qn = new QueueNode();
         do {
             System.out.println("Queue Operations Menu:");
@@ -100,30 +111,31 @@ public class QueueNode {
             System.out.println("6. Check if the queue is empty");
             System.out.println("0. Exit");
             System.out.print("Enter your choice: ");
-        
-            Choice = scann.nextLine();
-        
-            switch (Choice) {
-                case "1":
+            
+            choice = scan.nextInt();
+            scan.nextLine();
+            
+            switch (choice) {
+                case 1:
                     System.out.print("Enter value to enqueue: ");
-                    String value = scann.nextLine();
-                    qn.enqueue(value);
+                    String value = scan.nextLine();
+                    qn.Enqueue(value);
                     System.out.println(value + " enqueued to the queue.");
                     break;
-                
-                case "2":
-                    if (qn.dequeue()) {
+                    
+                case 2:
+                    if (qn.Dequeue()) {
                         System.out.println("Element dequeued from the queue.");
                     } else {
                         System.out.println("Queue is empty.");
                     }
                     break;
-                
-                case "3":
+                    
+                case 3:
                     qn.display();
                     break;
-                
-                case "4":
+                    
+                case 4:
                     Object first = qn.getFirst();
                     if (first != null) {
                         System.out.println("First element: " + first);
@@ -131,8 +143,8 @@ public class QueueNode {
                         System.out.println("Queue is empty.");
                     }
                     break;
-                
-                case "5":
+                    
+                case 5:
                     Object last = qn.getLast();
                     if (last != null) {
                         System.out.println("Last element: " + last);
@@ -140,23 +152,23 @@ public class QueueNode {
                         System.out.println("Queue is empty.");
                     }
                     break;
-                
-                case "6":
+                    
+                case 6:
                     if (qn.isEmpty()) {
                         System.out.println("Queue is empty.");
                     } else {
                         System.out.println("Queue is not empty.");
                     }
                     break;
-                
-                case "0":
+                    
+                case 0:
                     System.out.println("Exiting...");
                     break;
-                
+                    
                 default:
                     System.out.println("Invalid choice. Please try again.");
             }
-        
-        } while (!Choice.equals("0"));
+            
+        } while (choice != 0);
     }
 }
