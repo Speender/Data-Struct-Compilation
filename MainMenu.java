@@ -2,8 +2,8 @@ import java.util.*;
 
 public class MainMenu {
     public static void main(String... args) {
-        Scanner scan = new Scanner(System.in); // Keep the scanner open for the whole session
-        String choice = ""; // Initialize the choice variable
+        Scanner scan = new Scanner(System.in);
+        String choice = "";
 
         while (true) {
             System.out.print(
@@ -17,7 +17,6 @@ public class MainMenu {
                 "[7] Node List program\n" +
                 "[8] Queue Array program\n" +
                 "[9] Queue Node program\n" +
-                "[10] Infix To Postfix program\n" +
                 "[0] Exit Main Menu\n" +
                 "=============================================================\nChoice: "
             );
@@ -47,27 +46,22 @@ public class MainMenu {
                     break;
                case "6":
                     StackList sl = new StackList();
-                    sl.StackList(scan);
+                    sl.StackListMenu(scan);
                     break;
                case "7":
                     NodeList nl = new NodeList();
-                    nl.NodeList(scan);
+                    nl.NodeListMenu(scan);
                     break;
                case "8":
-                    QueueArray.exeQueueMenu(scan); //fix outofbounds error
+                    QueueArray.exeQueueMenu(scan);
                     break;
                case "9":
-                     QueueNode.QueueNodeMen(scan);
+                     QueueNode.QueueNodeMenu(scan);
                     break;
-               case "10":
-               
-                    InfixtoPostfix.InfixToPostfixMenu(scan);
-                    break;
-   
                 case "0":
                     System.out.println("Exiting the program. Goodbye!");
-                    scan.close(); // Close scanner when exiting
-                    return; // Exit the program
+                    scan.close(); 
+                    return; 
                 default:
                     System.out.println("Invalid choice. Please try again.");
                     break;
