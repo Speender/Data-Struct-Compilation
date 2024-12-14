@@ -1,55 +1,61 @@
 import java.util.Scanner;
 
 public class NodeList {
-    private Node last;
-    private int counter;
+    private Node head; // Pointer to the first node in the list
+    private int counter; // Count of nodes in the list
 
     public NodeList() {
-        last = null;
+        head = null;
         counter = 0;
     }
 
     public boolean isEmpty() {
-        return last == null;
+        return head == null;
     }
 
     public boolean add(int item) {
         Node newNode = new Node(item);
-        if (last == null) {
-            last = newNode;
+
+        // If the list is empty, the new node becomes the head
+        if (head == null) {
+            head = newNode;
         } else {
-            Node temp = last;
+            // Traverse to the end of the list
+            Node temp = head;
             while (temp.getNext() != null) {
                 temp = temp.getNext();
             }
-            temp.setNext(newNode);
+            temp.setNext(newNode); // Add the new node at the end
         }
-        counter++;
+
+        counter++; // Increment the counter
         return true;
     }
 
     public boolean delete(int location) {
-        if (location < 0 || location >= counter) {
+        if (location < 0 || location >= counter) { // Validate location
             return false;
         }
 
-        if (location == 0) {
-            last = last.getNext();
+        if (location == 0) { // Deleting the first node
+            head = head.getNext();
             counter--;
             return true;
         }
 
-        Node temp = getLastNode(location - 1);
+        // Find the node just before the one to be deleted
+        Node temp = getNodeAt(location - 1);
         if (temp == null || temp.getNext() == null) {
             return false;
         }
-        temp.setNext(temp.getNext().getNext());
+
+        temp.setNext(temp.getNext().getNext()); // Skip the node to delete
         counter--;
         return true;
     }
 
     public void display() {
-        Node temp = last;
+        Node temp = head; // Start from the head
         while (temp != null) {
             System.out.print(temp.getItem() + " ");
             temp = temp.getNext();
@@ -57,18 +63,18 @@ public class NodeList {
         System.out.println();
     }
 
-    private Node getLastNode(int location) {
-        Node temp = last;
+    private Node getNodeAt(int location) {
+        Node temp = head;
         for (int i = 0; i < location; i++) {
             if (temp == null) {
-                return null;
+                return null; // Out of bounds
             }
             temp = temp.getNext();
         }
         return temp;
     }
 
-    public static void NodeList(Scanner scan) {
+    public static void NodeListMenu(Scanner scan) {
         NodeList list = new NodeList();
         String choice;
 
@@ -130,13 +136,14 @@ public class NodeList {
 }
 
 class Node {
-    private int item;
-    private Node next;
+    private int item; 
+    private Node next; 
 
     public Node(int item) {
-     this.item = item;
-     this.next = null;
+        this.item = item;
+        this.next = null;
     }
+
     public int getItem() {
         return item;
     }
